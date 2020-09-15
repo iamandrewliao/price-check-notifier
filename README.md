@@ -6,4 +6,4 @@
 -should be automated to run every given time interval (cron for Unix, scheduled tasks for Windows)
 
 ## Potential updates
-1) Track moving average instead of setting a target price
+-Track moving average instead of setting a target price
