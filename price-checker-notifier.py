@@ -1,3 +1,5 @@
+# how to automate: https://datatofish.com/python-script-windows-scheduler/ or cloud solutions
+
 import requests
 from bs4 import BeautifulSoup
 import os
@@ -9,23 +11,8 @@ url = {"gpu":"https://www.amazon.com/XFX-Radeon-1286MHz-Graphics-RX-570P8DFD6\
 /dp/B077VX31FZ/ref=sr_1_2?dchild=1&keywords=rx+570&qid=1592422039&sr=8-2"}
 # the \ can help you write code across lines
 # to use multiple url's maybe put them all in a dictionary and do a for loop in check_price
-
-url = {"Amazon": f"https://smile.amazon.com/s?k={part}&crid=2PWKVVFDU11SH&sprefix=570%2Caps%2C62&ref=nb_sb_noss_1",
-	   "Newegg": f"https://www.newegg.com/p/pl?d={part}"}
-
-def newegg():
-	gpu = input("What part are you searching for? ")
-
-	pages_raw = doc.find(class_="list-tool-pagination-text").strong #finds the page number (in the form "x/y" e.g. 1/4)
-	pages = int(str(pages_raw).split("/")[-2].split(">")[:-1]) #parses "x/y" to find the total number of pages
-	for i in range(1, pages+1):
-		url = f"https://www.newegg.com/p/pl?d={gpu}&N=100007709&isdeptsrh=1&page={i}"
-		page = requests.get(url).text
-		doc = BeautifulSoup(page, "html.parser")
-
-# I want this to return to me product names and their links and prices
-
 target_price = {"gpu":160}
+# idea for future improvement: calculate moving average instead of a somewhat arbitrary target price
 
 def check_price(component):
 	page = requests.get(url[component], headers = headers)
@@ -38,7 +25,6 @@ def check_price(component):
 	rounded_price = round(float(price[1:]))
 	if rounded_price < target_price[component]:
 		send_whatsapp(component)
-
 def send_whatsapp(component):
 	client = Client()
 	whatsapp_sender = 'whatsapp:+14155238886'
